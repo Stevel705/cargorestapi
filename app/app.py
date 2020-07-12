@@ -23,7 +23,17 @@ def get_rate(date, cargo_type):
     # Если тип груза не найден
     return False
 
-@app.route('/declared-value', methods=['GET'])
+@app.errorhandler(400)
+def bad_request(e):
+    # return also the code error
+    return jsonify({"status": "not ok", "message": "this server could not understand your request"}), 400
+
+@app.errorhandler(404)
+def not_found(e):
+    # return also the code error
+    return jsonify({"status": "not found", "message": "route not found"}), 404
+
+@app.route('/innoseti/api/v1.0/declared-value', methods=['GET'])
 def declared_val():
     date_ = request.args.get('date') # дата 
     cargo_type = request.args.get('cargoType') # тип груза 
