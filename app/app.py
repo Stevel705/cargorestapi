@@ -75,13 +75,11 @@ def declared_val():
         new_log = Logging(None, cargo_type, declared_value, 0, 0, "Failed")
         db.session.add(new_log)
         db.session.commit()
-        return "Not enough information about cargo"
+        return "Not enough information about cargo. Need the date, type of cargo and declared value"
 
     # Получаем дату и приводим к первому дню месяца, используем эту дату для получения актуальной информации в json
     # Считаем, что дата приходит в нужном формате и нам не нужно её проверять
-    date_time = datetime.strptime(
-        date_, '%Y-%m-%d').replace(day=1).strftime("%Y-%m-%d")
-    rate = get_rate(date=date_time, cargo_type=cargo_type)
+    rate = get_rate(date=date_, cargo_type=cargo_type)
 
     if not rate:
         return "No information about cargo"
