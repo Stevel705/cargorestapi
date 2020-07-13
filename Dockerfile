@@ -4,5 +4,5 @@ WORKDIR /app
 RUN apt update 
 RUN pip install -r requirements.txt
 
-CMD python create_db.py
-ENTRYPOINT python app.py
+RUN python create_db.py
+CMD python app.py
